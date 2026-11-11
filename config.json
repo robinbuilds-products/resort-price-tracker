@@ -6,7 +6,7 @@
   ],
   "history_file": "price_history.csv",
   "alerts": {
-    "below_price": 1200,
+    "below_price": 1000,
     "alert_on_drop_since_last_check": false,
     "email_to": "robin.oshaughnessy@gmail.com"
   }
