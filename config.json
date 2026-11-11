@@ -1,0 +1,12 @@
+{
+  "site": "https://www.pointpleasantresort.com",
+  "stay_windows": [
+    { "begin": "04/13/2027", "end": "04/20/2027", "adults": 2, "children": 0 }
+  ],
+  "history_file": "price_history.csv",
+  "alerts": {
+    "below_price": null,
+    "alert_on_drop_since_last_check": false,
+    "email_to": null
+  }
+}
