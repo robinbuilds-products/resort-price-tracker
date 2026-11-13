@@ -2,11 +2,11 @@ name: Daily price check
 
 on:
   schedule:
-    - cron: "0 13 * * *"
-  workflow_dispatch:
+    - cron: "0 13 * * *"   # every day at 13:00 UTC (7 AM US Central daylight time / 8 AM standard time)
+  workflow_dispatch:        # lets you run it by hand from the Actions tab
 
 permissions:
-  contents: write
+  contents: write           # lets the job save the updated history file
 
 jobs:
   check:
@@ -24,6 +24,7 @@ jobs:
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
         run: python check_prices.py
 
       - name: Save the updated history
