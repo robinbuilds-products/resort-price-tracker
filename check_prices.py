@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 """Daily price check for every available unit at Point Pleasant Resort."""
 
@@ -5,7 +6,6 @@ import csv
 import html
 import json
 import os
-import re
 import smtplib
 import sys
 import time
@@ -155,22 +155,22 @@ def build_rows(now, window, data, previous):
     return rows
 
 
-def get_building_number(unit):
-    """Get the number portion of a unit name, such as 22 from A22."""
-
-    match = re.search(r"\d+", str(unit))
-
-    if not match:
-        return None
-
-    return int(match.group())
+# The resort's unit codes are not its building numbers.
+PREFERRED_UNITS_BY_BUILDING = {
+    22: frozenset({"B14", "B15", "B16"}),
+    23: frozenset({"B17", "B18", "B19"}),
+    24: frozenset({"B20", "B21", "B22"}),
+}
 
 
 def is_preferred_unit(unit, preferred_buildings):
-    """Check whether the condo is in a preferred building."""
+    """Match the complete condo code against the configured buildings."""
 
-    building = get_building_number(unit)
-    return building in preferred_buildings
+    unit_code = str(unit).strip().upper()
+    return any(
+        unit_code in PREFERRED_UNITS_BY_BUILDING.get(building, ())
+        for building in preferred_buildings
+    )
 
 
 def find_alerts(rows, previous, alerts_cfg, window):
