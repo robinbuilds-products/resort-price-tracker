@@ -665,9 +665,7 @@ will turn them off.
 
         server.send_message(msg)
 
-    print(
-        f"Alert email sent to {to_addr}"
-    )
+    print("Alert email sent.")
 
 
 def main():
@@ -757,9 +755,7 @@ def main():
 
     if all_alerts:
 
-        to_addr = cfg["alerts"].get(
-            "email_to"
-        )
+        to_addr = os.environ.get("ALERT_EMAIL_TO", "").strip()
 
         if to_addr:
             send_email(
